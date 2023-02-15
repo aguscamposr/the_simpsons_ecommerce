@@ -28,8 +28,8 @@ const CharacterList = () => {
         <div className="CharacterList-container">
           {characters.map((char) => {
             return (
-              <div key={char.id}>
-                <Link to={`/detail/${char.id}`} className="Link">
+              <div key={char.character}>
+                <Link to={`/detail/${char.character}`} className="Link">
                   <CharacterCard data={char} />
                 </Link>
               </div>

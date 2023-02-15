@@ -5,32 +5,31 @@ import "./CharacterDetail.css";
 import CharacterCard from "../../components/CharacterCard/CharacterCard";
 
 const CharacterDetail = () => {
-  const [character, setCharacter] = useState([]);
+  let { id } = useParams();
+  const [character, setCharacter] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   console.log(character);
 
-  let { id } = useParams();
-
-  // console.log(userID);
+  
 
   useEffect(() => {
-    axios(`https://thesimpsonsquoteapi.glitch.me/quotes?count=15${id}`).then((res) =>
+    axios(`https://thesimpsonsquoteapi.glitch.me/quotes?character=${id}`).then((res) =>
       setCharacter(res.data)
     );
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
   }, [id]);
-
+  //In the return im using an array whit position 0 because the API return only one Array whit an only Objet.
   return (
     <div className="CharacterList-Container">
-      {isLoading ? (
+      {(isLoading|| !character) ? (
         <h3>Loding...</h3>
       ) : (
         <div className="CharacterList-detail">
-          <div key={character.id}>
-            <CharacterCard data={character} />
+          <div key={character[0].character}>
+            <CharacterCard data={character[0]} />
           </div>
         </div>
       )}
